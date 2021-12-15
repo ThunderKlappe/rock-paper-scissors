@@ -6,7 +6,7 @@ let userChoice;
 let compWinCount = 0;
 let userWinCount = 0;
 let tieCount = 0;
-let choices = ["Rock", "Paper", "Scissors"];
+let choices = ["rock", "paper", "scissors"];
 let result;
 let playMore;
 
@@ -21,12 +21,6 @@ do{
     playMore = prompt("Would you like to keep playing? 'yes' or 'no'", "no");
 //loop to top
 }while(playMore != "no");
-
-
-
-
-
-
 
 
 //This Function plays through a game
@@ -53,11 +47,16 @@ let playGame = () =>{
 
 //This function asks the user for their choice and returns their choice
 let getUserChoice = () =>{
-
+    return prompt("Would you like rock, paper, or scissors?",);
 }
 
 //This function takes in the function, sets the case to lower, and checks to see if the user chose "rock", "paper", or "scissors"
 let sanitize = choice =>{
+    choice = choice.toLowerCase();
+    if(choice == !("rock"||"paper"||"scissors")){
+        choice = "none";
+    }
+    return choice;
 
 }
 
@@ -73,12 +72,54 @@ let check = choice =>{
 
 //This function randomly selects from an array and returns the contents of the index selected.
 let getCompChoice = choiceArray =>{
-
+    let indexSel = Math.floor((Math.random() * 3))
+    return choiceArray[indexSel];
 }
 
 //This function takes in the user choice and the computer choice and returns what the result is
 let getResult = (user, comp) => {
-
+    if(user == "rock"){
+        if(comp == "rock"){
+            tieCount++;
+            return "You picked rock and I picked rock. We tied!";
+        }
+        else if(comp == "paper"){
+            compWinCount++;
+            return "You picked rock and I picked paper. I win!";
+        }
+        else if(comp == "scissors"){
+            userWinCount++;
+            return "You picked rock and I picked scissors. You win!";
+        }
+    }
+    else if(user == "paper"){
+        if(comp == "rock"){
+            userWinCount++;
+            return "You picked Paper and I picked Rock. You win!";
+        }
+        else if(comp == "paper"){
+            tieCount++;
+            return "You picked Paper and I picked Paper. We tied!";
+        }
+        else if(comp == "scissors"){
+            compWinCount++;
+            return "You picked Paper and I picked Scissors. I won!";
+        }
+    }
+    else if(user == "scissors"){
+        if(comp == "rock"){
+            compWinCount++;
+            return "You picked Scissors and I picked Rock. I won!";
+        }
+        else if(comp == "paper"){
+            userWinCount++;
+            return "You picked Scissors and I picked Paper. You won!";
+        }
+        else if(comp == "scissors"){
+            tieCount++;
+            return "You picked Scissors and I picked Scissors. We tied!";
+        }
+    }
 }
 
 //if the user picked rock and the computer picked rock, tie game
