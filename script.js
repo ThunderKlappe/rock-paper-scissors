@@ -9,6 +9,7 @@ let tieCount = 0;
 let choices = ["rock", "paper", "scissors"];
 let result;
 let playMore;
+let winner;
 
 //Explain the game
 console.log("Welcome to Rock, Paper, Scissors");
@@ -18,20 +19,31 @@ do{
     //play through one game
     playGame();
     //ask if user wants to play again
-    playMore = prompt("Would you like to keep playing? 'yes' or 'no'", "no");
+    playMore = prompt("Would you like to keep playing? 'yes' or 'no'", "yes");
+
+    try{playMore = sanitize(playMore)}
+    catch(error){playMore = "no"};
+    if(playMore != ("yes"||"no")){
+        playMore = "no";
+    }
+
 //loop to top
 }while(playMore != "no");
+
+//Thank the player and let them know who won overall.
+winner = overallWinner(compWinCount, userWinCount, tieCount);
+console.log(`Thanks for playing! ${winner}`);
 
 
 //This Function plays through a game
 function playGame() {
+    
     //Prompt for either rock, paper, or scissors from user
     userChoice = getUserChoice();
     //Sanitize user selection
     userChoice = sanitize(userChoice);
     //Check to see if they answered 'Rock', 'Paper', or 'Scissors'
     userChoice = check(userChoice);
-
 
     //Randomly select rock, paper, or scissors for computer
     compChoice = getCompChoice(choices);
@@ -47,20 +59,21 @@ function playGame() {
 //This function asks the user for their choice and returns their choice
 function getUserChoice() {
     return prompt("Would you like rock, paper, or scissors?");
+    
 }
 
-//This function takes in the function, sets the case to lower, and checks to see if the user chose "rock", "paper", or "scissors"
+//This function takes in the function, sets the case to lower, and sees if the user entered a valid option.
 function sanitize(choice) {
-    choice = choice.toLowerCase();
-    if (choice == !("rock" || "paper" || "scissors")) {
+    if (!((choice == "rock" && choice == "paper" && choice == "scissors") && (choice == "yes" && choice == "no")) && choice == null) {
         choice = "none";
     }
-    return choice;
-
+    return choice.toLowerCase();
 }
 
+//This function checks to see if the user chose "rock", "paper", or "scissors"
 function check(choice) {
-    while (choice == "none") {
+
+    while (!(choice == "rock" || choice == "paper" || choice == "scissors")) {
         //if not, ask again
         console.log("I'm sorry, please enter 'Rock', 'Paper', or 'Scissors' to choose what you would like to use.");
         choice = getUserChoice();
@@ -76,7 +89,11 @@ function getCompChoice(choiceArray) {
 }
 
 //This function takes in the user choice and the computer choice and returns what the result is
+
 function getResult(user, comp) {
+    //if the user picked rock and the computer picked rock, tie game
+    //if the user picked rock and the computer picked paper, computer won
+    //if the user picked rock and the computer picked scissors, user won
     if (user == "rock") {
         if (comp == "rock") {
             tieCount++;
@@ -91,6 +108,9 @@ function getResult(user, comp) {
             return "You picked rock and I picked scissors. You win!";
         }
     }
+    //if the user picked paper and the computer picked rock, user won
+    //if the user picked paper and the computer picked paper, tie game
+    //if the user picked paper and the computer picked scissons, computer won
     else if (user == "paper") {
         if (comp == "rock") {
             userWinCount++;
@@ -105,6 +125,10 @@ function getResult(user, comp) {
             return "You picked Paper and I picked Scissors. I won!";
         }
     }
+
+    //if the user picked scissors and the computer picked rock, computer won
+    //if the user picked scissors and the computer picked paper, user won
+    //if the user picked scissors and the computer picked scissons, tie game
     else if (user == "scissors") {
         if (comp == "rock") {
             compWinCount++;
@@ -121,14 +145,17 @@ function getResult(user, comp) {
     }
 }
 
-//if the user picked rock and the computer picked rock, tie game
-//if the user picked rock and the computer picked paper, computer won
-//if the user picked rock and the computer picked scissors, user won
+//This function takes in the scores and returns who won overall
+function overallWinner(comp, user){
+    if(comp>user){
+        return "I won overall! Go Me!";
+    }else if(user > comp){
+        return "You won overall! Way to go!";
+    }else if(user == comp){
+        return "We tied overall! I wish I won!";
+    }
+    return "I got no idea who won! :(";
 
-//if the user picked paper and the computer picked rock, user won
-//if the user picked paper and the computer picked paper, tie game
-//if the user picked paper and the computer picked scissons, computer won
+}
 
-//if the user picked scissors and the computer picked rock, computer won
-//if the user picked scissors and the computer picked paper, user won
-//if the user picked scissors and the computer picked scissons, tie game
+
