@@ -4,6 +4,7 @@ body{
     background-color: darkturquoise;
     align-items: center;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
 }
 #title{
     display: flex;
@@ -18,13 +19,13 @@ body{
 }
 #buttons{
     display: flex;
-    width: 500px;
+    max-width: 500px;
     justify-content: space-around;
 }
 #score{
     display: flex;
-    width: 500px;
-    justify-content: space-between;
+    max-width: 500px;
+    gap: 30px;
 }
 #winner-box{
     display: flex;
