@@ -1,0 +1,59 @@
+body{
+    display: flex;
+    flex-direction: column;
+    background-color: darkturquoise;
+    align-items: center;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+#title{
+    display: flex;
+    justify-content: center;
+    font-size: larger;
+    font-weight: bold;
+}
+#intro{
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+}
+#buttons{
+    display: flex;
+    width: 500px;
+    justify-content: space-around;
+}
+#score{
+    display: flex;
+    width: 500px;
+    justify-content: space-between;
+}
+#winner-box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+button{
+    margin: 10px;
+}
+#buttons button{
+    width: 100px;
+    height: 100px;
+    background-color: white;
+}
+#skier{
+    background-image: url("./clipart/skier.jpg");
+    background-size: 90px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+#snowboarder{
+    background-image: url("./clipart/snowboarder.jpg");
+    background-size: 90px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+#snowball{
+    background-image: url("./clipart/snowball.png");
+    background-size: 90px;
+    background-repeat: no-repeat;
+    background-position: center;
+}

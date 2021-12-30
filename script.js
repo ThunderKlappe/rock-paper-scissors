@@ -29,7 +29,6 @@ function playGame(e) {
     
 
     //get which button the user selected
-    console.log(e.target.id);
     userChoice = e.target.id;
 
     //Randomly select snowball, snowboarder, or skier for computer
@@ -41,12 +40,12 @@ function playGame(e) {
     //display winner
     results.textContent = result;
     //display winner count
-    console.log(`Now you've won ${userWinCount}, I've won ${compWinCount}, and we've tied ${tieCount}.`);
 
     usrScore.textContent = `Your Score: ${userWinCount}`;
     compScore.textContent = `My Score: ${compWinCount}`;
     ties.textContent = `Ties: ${tieCount}`;
 
+    checkWinner();
 }
 
 //This function randomly selects from an array and returns the contents of the index selected.
@@ -111,15 +110,43 @@ function getResult(user, comp) {
         }
     }
 }
+//This function checks to see if there is a winner
+function checkWinner() {
+    if (userWinCount == 5 || compWinCount == 5) {
+        //display the winner
+        let winner = overallWinner(compWinCount, userWinCount);
+        //disable the buttons
+        btns.forEach(btn => btn.removeEventListener("click", playGame));
+
+        const winnerBox = document.createElement("div");
+        winnerBox.setAttribute("id", "winner-box")
+        const winnerDisp = document.createElement("p");
+        const playAgainPrompt = document.createElement("p");
+        const buttonContainer = document.createElement("div");
+        const playAgainButton = document.createElement("button");
+        const dontPlayButton = document.createElement('button');
+        winnerDisp.textContent = winner;
+        playAgainPrompt.textContent = "Do you want to play again?";
+        playAgainButton.textContent = "Heck Yeah!";
+        dontPlayButton.textContent = "No, I'm lame...";
+        buttonContainer.appendChild(playAgainButton);
+        buttonContainer.appendChild(dontPlayButton);
+        winnerBox.appendChild(winnerDisp);
+        winnerBox.appendChild(playAgainPrompt);
+        winnerBox.appendChild(buttonContainer);
+        document.body.appendChild(winnerBox);
+
+        playAgainButton.addEventListener('click', ()=> location.reload());
+        dontPlayButton.addEventListener('click', ()=> window.close());
+    }
+}
 
 //This function takes in the scores and returns who won overall
 function overallWinner(comp, user){
     if(comp>user){
-        return "I won overall! Go Me!";
+        return "I won! Eat powder, sucka!!";
     }else if(user > comp){
-        return "You won overall! Way to go!";
-    }else if(user == comp){
-        return "We tied overall! I wish I won!";
+        return "You won... The snow is mushy anyways...";
     }
     return "I got no idea who won! :(";
 
