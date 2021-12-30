@@ -1,4 +1,4 @@
-//***Rock Paper Scissors program***
+//***snowball snowboarder skier program***
 
 //Initialize variables
 let compChoice;
@@ -6,7 +6,7 @@ let userChoice;
 let compWinCount = 0;
 let userWinCount = 0;
 let tieCount = 0;
-let choices = ["rock", "paper", "scissors"];
+let choices = ["snowball", "snowboarder", "skier"];
 let result;
 let playMore;
 let winner;
@@ -32,7 +32,7 @@ function playGame(e) {
     console.log(e.target.id);
     userChoice = e.target.id;
 
-    //Randomly select rock, paper, or scissors for computer
+    //Randomly select snowball, snowboarder, or skier for computer
     compChoice = getCompChoice(choices);
 
     //compare user's input to computer's selection
@@ -58,56 +58,56 @@ function getCompChoice(choiceArray) {
 //This function takes in the user choice and the computer choice and returns what the result is
 
 function getResult(user, comp) {
-    //if the user picked rock and the computer picked rock, tie game
-    //if the user picked rock and the computer picked paper, computer won
-    //if the user picked rock and the computer picked scissors, user won
-    if (user == "rock") {
-        if (comp == "rock") {
+    //if the user picked snowball and the computer picked snowball, tie game
+    //if the user picked snowball and the computer picked snowboarder, computer won
+    //if the user picked snowball and the computer picked skier, user won
+    if (user == "snowball") {
+        if (comp == "snowball") {
             tieCount++;
-            return "You picked rock and I picked rock. We tied!";
+            return "You picked snowball and I picked snowball. We tied!";
         }
-        else if (comp == "paper") {
+        else if (comp == "snowboarder") {
             compWinCount++;
-            return "You picked rock and I picked paper. I win!";
+            return "You picked snowball and I picked snowboarder. I win!";
         }
-        else if (comp == "scissors") {
+        else if (comp == "skier") {
             userWinCount++;
-            return "You picked rock and I picked scissors. You win!";
+            return "You picked snowball and I picked skier. You win!";
         }
     }
-    //if the user picked paper and the computer picked rock, user won
-    //if the user picked paper and the computer picked paper, tie game
-    //if the user picked paper and the computer picked scissons, computer won
-    else if (user == "paper") {
-        if (comp == "rock") {
+    //if the user picked snowboarder and the computer picked snowball, user won
+    //if the user picked snowboarder and the computer picked snowboarder, tie game
+    //if the user picked snowboarder and the computer picked scissons, computer won
+    else if (user == "snowboarder") {
+        if (comp == "snowball") {
             userWinCount++;
-            return "You picked Paper and I picked Rock. You win!";
+            return "You picked snowboarder and I picked snowball. You win!";
         }
-        else if (comp == "paper") {
+        else if (comp == "snowboarder") {
             tieCount++;
-            return "You picked Paper and I picked Paper. We tied!";
+            return "You picked snowboarder and I picked snowboarder. We tied!";
         }
-        else if (comp == "scissors") {
+        else if (comp == "skier") {
             compWinCount++;
-            return "You picked Paper and I picked Scissors. I won!";
+            return "You picked snowboarder and I picked skier. I won!";
         }
     }
 
-    //if the user picked scissors and the computer picked rock, computer won
-    //if the user picked scissors and the computer picked paper, user won
-    //if the user picked scissors and the computer picked scissons, tie game
-    else if (user == "scissors") {
-        if (comp == "rock") {
+    //if the user picked skier and the computer picked snowball, computer won
+    //if the user picked skier and the computer picked snowboarder, user won
+    //if the user picked skier and the computer picked scissons, tie game
+    else if (user == "skier") {
+        if (comp == "snowball") {
             compWinCount++;
-            return "You picked Scissors and I picked Rock. I won!";
+            return "You picked skier and I picked snowball. I won!";
         }
-        else if (comp == "paper") {
+        else if (comp == "snowboarder") {
             userWinCount++;
-            return "You picked Scissors and I picked Paper. You won!";
+            return "You picked skier and I picked snowboarder. You won!";
         }
-        else if (comp == "scissors") {
+        else if (comp == "skier") {
             tieCount++;
-            return "You picked Scissors and I picked Scissors. We tied!";
+            return "You picked skier and I picked skier. We tied!";
         }
     }
 }
