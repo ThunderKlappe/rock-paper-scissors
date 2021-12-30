@@ -11,75 +11,42 @@ let result;
 let playMore;
 let winner;
 
-//Explain the game
-console.log("Welcome to Rock, Paper, Scissors");
-console.log("Please enter 'Rock', 'Paper', or 'Scissors' to choose what you would like to use.");
-console.log("I'll choose one as well, and let you know who won!");
-do{
-    //play through one game
-    playGame();
-    //ask if user wants to play again
-    playMore = prompt("Would you like to keep playing? 'yes' or 'no'", "yes");
+//Get access to the scores on page
+const usrScore = document.querySelector("#usr-score");
+const compScore = document.querySelector("#comp-score");
+const ties = document.querySelector("#ties");
 
-    try{playMore = sanitize(playMore)}
-    catch(error){playMore = "no"};
-    if(playMore != ("yes"||"no")){
-        playMore = "no";
-    }
+//get access to the results 
+const results = document.querySelector("#result-p");
 
-//loop to top
-}while(playMore != "no");
-
-//Thank the player and let them know who won overall.
-winner = overallWinner(compWinCount, userWinCount, tieCount);
-console.log(`Thanks for playing! ${winner}`);
+//Get buttons and add action listeners for clicks
+const btns = document.querySelectorAll("button");
+btns.forEach(btn => btn.addEventListener("click", playGame));
 
 
 //This Function plays through a game
-function playGame() {
+function playGame(e) {
     
-    //Prompt for either rock, paper, or scissors from user
-    userChoice = getUserChoice();
-    //Sanitize user selection
-    userChoice = sanitize(userChoice);
-    //Check to see if they answered 'Rock', 'Paper', or 'Scissors'
-    userChoice = check(userChoice);
+
+    //get which button the user selected
+    console.log(e.target.id);
+    userChoice = e.target.id;
 
     //Randomly select rock, paper, or scissors for computer
     compChoice = getCompChoice(choices);
+
     //compare user's input to computer's selection
     result = getResult(userChoice, compChoice);
 
     //display winner
-    console.log(result);
+    results.textContent = result;
     //display winner count
     console.log(`Now you've won ${userWinCount}, I've won ${compWinCount}, and we've tied ${tieCount}.`);
-}
 
-//This function asks the user for their choice and returns their choice
-function getUserChoice() {
-    return prompt("Would you like rock, paper, or scissors?");
-    
-}
+    usrScore.textContent = `Your Score: ${userWinCount}`;
+    compScore.textContent = `My Score: ${compWinCount}`;
+    ties.textContent = `Ties: ${tieCount}`;
 
-//This function takes in the function, sets the case to lower, and sees if the user entered a valid option.
-function sanitize(choice) {
-    if (!((choice == "rock" && choice == "paper" && choice == "scissors") && (choice == "yes" && choice == "no")) && choice == null) {
-        choice = "none";
-    }
-    return choice.toLowerCase();
-}
-
-//This function checks to see if the user chose "rock", "paper", or "scissors"
-function check(choice) {
-
-    while (!(choice == "rock" || choice == "paper" || choice == "scissors")) {
-        //if not, ask again
-        console.log("I'm sorry, please enter 'Rock', 'Paper', or 'Scissors' to choose what you would like to use.");
-        choice = getUserChoice();
-        choice = sanitize(choice);
-    }
-    return choice;
 }
 
 //This function randomly selects from an array and returns the contents of the index selected.
